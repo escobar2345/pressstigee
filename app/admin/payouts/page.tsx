@@ -1,28 +1,16 @@
-import { Wallet, Clock, Users, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Wallet, Clock, Users, TrendingUp } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminStatCard from "@/components/admin/AdminStatCard";
 import AdminTable, {
   StatusBadge,
   type Column,
 } from "@/components/admin/AdminTable";
+import PayButton from "@/components/admin/PayButton";
 import {
   payoutsKpis,
   adminPayouts,
   type AdminPayoutRow,
 } from "@/lib/admin-mock-data";
-
-function PayButton({ onPay }: { onPay: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onPay}
-      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-brand-teal/40 bg-brand-teal/10 text-brand-teal font-heading font-700 text-[11px] hover:bg-brand-teal/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
-    >
-      <CheckCircle2 size={14} />
-      Pay
-    </button>
-  );
-}
 
 const columns: Column<AdminPayoutRow>[] = [
   { key: "partner", header: "Partner" },
@@ -40,9 +28,7 @@ const columns: Column<AdminPayoutRow>[] = [
   {
     key: "actions",
     header: "Actions",
-    render: (row) => (
-      <PayButton onPay={() => row.__pay?.()} />
-    ),
+    render: (row) => <PayButton payoutId={row.email} />,
   },
 ];
 
