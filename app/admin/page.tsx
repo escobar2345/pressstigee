@@ -9,7 +9,7 @@ import {
   TrendingUp,
   CheckCircle2,
   XCircle,
-  ArrowPath,
+  RefreshCw,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminStatCard from "@/components/admin/AdminStatCard";
@@ -89,7 +89,7 @@ function StatusActions({ row }: { row: AdminBookingRow }) {
           disabled={isUpdating}
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-[11px] font-heading font-700 hover:bg-white/20 transition"
         >
-          <ArrowPath size={14} />
+          <RefreshCw size={14} />
           Pending
         </button>
       )}
@@ -139,6 +139,8 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     loadBookings();
 
+    if (!supabase) return;
+
     const channel = supabase
       .channel("admin-referral-bookings")
       .on(
@@ -160,9 +162,9 @@ export default function AdminDashboardPage() {
 
     window.addEventListener("supabase-referral-bookings-updated", refreshListener);
 
-    return () => {
+return () => {
       window.removeEventListener("supabase-referral-bookings-updated", refreshListener);
-      supabase.removeChannel(channel);
+      supabase?.removeChannel(channel);
     };
   }, []);
 
@@ -243,9 +245,10 @@ export default function AdminDashboardPage() {
             onClick={loadBookings}
             className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-dark/80 px-4 py-2 text-sm text-white/80 hover:text-white hover:border-brand-teal/50 transition"
           >
-            <ArrowPath size={16} /> Refresh
+            <RefreshCw size={16} /> Refresh
           </button>
         </div>
+
         {loading ? (
           <div className="py-10 text-center text-white/60">Loading referral bookings...</div>
         ) : (

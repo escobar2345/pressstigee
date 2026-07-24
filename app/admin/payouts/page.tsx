@@ -40,7 +40,7 @@ const columns: Column<AdminPayoutRow>[] = [
   {
     key: "actions",
     header: "Actions",
-    render: (row, index) => (
+    render: (row) => (
       <PayButton onPay={() => row.__pay?.()} />
     ),
   },

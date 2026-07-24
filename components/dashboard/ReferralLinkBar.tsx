@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Check, Copy } from "lucide-react";
-import { type Database } from "@/lib/database";
 import { FALLBACK_REFERRAL_NAME, getReferralLink, getReferralNameFromMetadata } from "@/lib/referrals";
 import { supabase } from "@/lib/supabase";
 
